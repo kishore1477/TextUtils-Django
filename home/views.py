@@ -4,7 +4,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import HttpResponse
 from collections import Counter
- 
+from django.views.decorators.csrf import csrf_exempt # import
+#  find the sum of two number
+
 # Create your views here.
 def index(request):
     params = {"name": 'Kishore'}
@@ -13,7 +15,7 @@ def  contact(request):
     params = {"name": 'Kishore'}
     return render(request, 'contact.html', params)
     # return HttpResponse("Welcome to home page")
-
+@csrf_exempt
 def analyze(request):
     
         # get the text
@@ -98,7 +100,7 @@ def analyze(request):
 
     # Analyze the text
 
-                            # return render(request, 'analyze.html', params)
+                            return render(request, 'analyze.html', params)
                             djtext = analyzed 
             if( removepunc == "on"):
                             punctuations =  string.punctuation
@@ -109,7 +111,7 @@ def analyze(request):
                                 if char not in punctuations:
                                     analyzed = analyzed + char
                             params = {'purpose': 'Removed Punctuations'+ "("+ removepunc + ")", 'analyzed_text': analyzed}
-                            # return render(request, 'analyze.html', params)
+                            return render(request, 'analyze.html', params)
                             djtext = analyzed 
             if(  wordcounter == "on"):
                             djtext2= djtext.split()
@@ -117,7 +119,7 @@ def analyze(request):
                             analyzed = words
                             
                             params = {'purpose': 'Word count'+ "("+wordcounter   + ")", 'analyzed_text': analyzed}
-                            # return render(request, 'analyze.html', params)
+                            return render(request, 'analyze.html', params)
                             djtext = analyzed 
             if(   charactercounter == "on"):
                         
@@ -137,7 +139,7 @@ def analyze(request):
                             analyzed =   count
                             
                             params = {'purpose': ' Character count'+ "("+ charactercounter  + ")", 'analyzed_text': analyzed}
-                            # return render(request, 'analyze.html', params)
+                            return render(request, 'analyze.html', params)
             if(removepunc !="on" and   removespaces !="on" and   captilizefirst !="on" and capatilizefleter !="on" and upper!="on" and lower !="on" and wordcounter !="on" and charactercounter != "on" and newlineremover != "on"):
                   params = {'purpose': 'failed'+ "("+ "Error"   + ")", 'analyzed_text':  'Please check any option for analyzing your text .'}   
                   return render(request, 'analyze.html', params)
